@@ -62,18 +62,19 @@ let data = d3.json("data/samples.json").then((rawData) => {
     console.log(names);
 
 
-    function displayData(){
+    function populateMenu(){
+        names.forEach((id,index) =>{
+            let selectMenu = d3.select("#dataSet");
+            let dataOption = selectMenu.append("option")
+            dataOption.text(id);
+            dataOption.attr('value',index);
+        })
 
         // use d3 to set the cursor on specific html tags
-        let selectMenu = d3.select("#dataSet");
-        let dataOption = selectMenu.append("option")
-        // let thead = d3.select("thead");
-        // tbody.html("");
-        dataOption.text("dfdfdfdfdfdfdff");
-        dataOption.attr('value',"int");
+        
     };
 
-    displayData();
+    populateMenu();
         
 
 });
