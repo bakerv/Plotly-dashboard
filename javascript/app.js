@@ -82,12 +82,6 @@ let data = d3.json("data/samples.json").then((rawData) => {
     d3.selectAll("#dataSet").on("change", selectData);
 });
 
-test = d3.json('data/samples.json').then(function(data){
-    console.log(data)
-    return data
-});
-
-console.log(test)
 
 
         // // Fill the data table using the values from each object in the data set
