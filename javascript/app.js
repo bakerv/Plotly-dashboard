@@ -16,6 +16,7 @@ let data = d3.json("data/samples.json").then((rawData) => {
         // extract information from the JSON
         let bacteria = rawData.samples[id]
         let subject = rawData.samples[id].id;
+        let config = {responsive: true};
 
         function hBarPlot(){
             // isolate the top 10 items from the data set.
@@ -45,7 +46,7 @@ let data = d3.json("data/samples.json").then((rawData) => {
                 }
             };
             //Pass bar chart into the div using Plotly
-            Plotly.newPlot("bacteriaCounts", bacteriaTrace, bacteriaLayout);
+            Plotly.newPlot("bacteriaCounts", bacteriaTrace, bacteriaLayout, config);
         }
 
         function bubblePlot(){
@@ -79,27 +80,32 @@ let data = d3.json("data/samples.json").then((rawData) => {
                 }
             };
             // Pass bubble chart into the div using Plotly
-            Plotly.newPlot("bubbleChart", bubbleTrace, bubbleLayout);
+            Plotly.newPlot("bubbleChart", bubbleTrace, bubbleLayout, config);
         }
 
         function metaTable(){
             let individualMetadata = rawData.metadata[id];
-            
+
             // set up data and parameters for plotly
             let metadataTrace = [{
                 type: 'table',
-                header: {
-                    values: [["Participant Demographics"]],
-                    align: "center"
+                header:{
+                    line: {color: 'white'}
                 },
                 cells: {
                     values: [Object.keys(individualMetadata),Object.values(individualMetadata)],
-                    align: "center",
-                    font: {family: "Arial", size: 11, color: ["black"]}
+                    align: ["right","left"],
+                    height:30,
+                    font: {family: "Arial", size: 16, color: ["black"]},
+                    line:{color: 'white'},
+                    pad: 50
                 }
             }];
+            let metadataLayout = {
+                title: `Participant Demographics`
+            }
             // Pass table into the div using Plotly
-            Plotly.newPlot("demographics", metadataTrace)
+            Plotly.newPlot("demographics", metadataTrace, metadataLayout, config)
         }
 
         hBarPlot();
