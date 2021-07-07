@@ -38,12 +38,18 @@ let data = d3.json("data/samples.json").then((rawData) => {
             }];
             let bacteriaLayout = {
                 title:{
-                    text: `Participant ${subject}, Top 10 Bacteria Species Present`
+                    text: `<b>Dominant Observed Species</b>`,
+                    font: {size:20}
                 }, 
                 xaxis: {
                     title:{
-                        text:"Sequencing Reads"
-                    }
+                        text:"Sequencing Reads",
+                        font:{size:18}
+                    },
+                    tickfont:{size:14}
+                },
+                yaxis:{
+                    tickfont:{size:14}
                 }
             };
             //Pass bar chart into the div using Plotly
@@ -68,16 +74,24 @@ let data = d3.json("data/samples.json").then((rawData) => {
                     "%{yaxis.title.text}: %{y}"
             }];
             let bubbleLayout = {
-                title: `Participant ${subject}, Species Distribution`,
+                autosize: true,
+                height:350,
+                title: {text:`<b>Species Distribution</b>`,
+                        font:{size:20}
+                    },
                 xaxis: {
                     title:{
-                        text: 'Operational Taxonomic Unit'
-                    }
+                        text: 'Operational Taxonomic Unit',
+                        font:{size:18}
+                    },
+                    tickfont:{size:14}
                 },
                 yaxis:{
                     title:{
-                        text: 'Sequencing Reads'
-                    }
+                        text: 'Sequencing Reads',
+                        font:{size:18}
+                    },
+                    tickfont:{size:14}
                 }
             };
             // Pass bubble chart into the div using Plotly
@@ -99,13 +113,16 @@ let data = d3.json("data/samples.json").then((rawData) => {
                     values: [displayKeys,Object.values(individualMetadata)],
                     align: ["right","left"],
                     height:30,
-                    font: {family: "Arial", size: 14, color: ["black"]},
+                    font: {family: "Arial", size: 18, color: ["black"]},
                     line:{color: 'white'},
                     pad: 0
                 }
             }];
             let metadataLayout = {
-                title: `Participant Demographics`
+                title: {
+                    text:'<b>Participant Demographics</b>',
+                    font:{size: 20}
+            }
             }
             // Pass table into the div using Plotly
             Plotly.newPlot("demographics", metadataTrace, metadataLayout)

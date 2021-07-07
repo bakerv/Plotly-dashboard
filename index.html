@@ -13,47 +13,31 @@
 <body>
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-          <h1 class="display-4">Exploring the Unknown!</h1>
+          <h1 class="display-4">Bacterial Colonization</h1>
           <p class="lead">A deep dive into the dominant bacterial species in belly buttons.</p>
         </div>
     </div>
-    <div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Dashboard</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="#">Home</span></a>
-            <a class="nav-item nav-link" href="#">Features</a>
-            <a class="nav-item nav-link" href="#">Pricing</a>
-            <a class="nav-item nav-link disabled" href="#">Disabled</a>
-          </div>
-        </div>
-    </nav>
-    <p></p>
-    <p>Select ID: "<select id="dataSet"></select></p>
-    </div>
-    
-    <div class="container-fluid" style="background-color:aliceblue">
+    <div class="container-fluid" style="background-color:whitesmoke">
+        <br>
+        <p style="font-size: 18px;">Select ID: &nbsp;<select id="dataSet"></select></p>
         <div class="row g-3">
             <div class="col-md-12">
                 <div class ="border bg-light">
                     <div id="bubbleChart"></div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="border bg-light">
                     <div id="demographics" ></div>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <div class="border bg-light">
                     <div id="bacteriaCounts"></div>
                 </div>
             </div>
         </div>
+        <br>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="javascript/app.js"></script>
