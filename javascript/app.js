@@ -5,25 +5,38 @@ let data = d3.json("data/samples.json").then((rawData) => {
         let lastElement = bacteria.sample_values.length -1;
         let individualMetadata = rawData.metadata[id];
         let names = rawData.names;
-        var x_value = [];
+        let subject = rawData.samples[id].id;
 
+        let otuIds = [];
+        bacteria.otu_ids.forEach(element => otuIds.push(`OTU ${element}`));
+
+        var x_value = [];
         if (bacteria.sample_values.length > 10) {
-            x_value = bacteria.sample_values.reverse().slice(lastElement-11,lastElement-1);
+            x_value = bacteria.sample_values;
         }
             else {
-            x_value = bacteria.sample_values.reverse();
+            x_value = bacteria.sample_values;
         }
         
         // Set up parameters for Plotly
         let bacteriaTrace = [{
             x: x_value,
-            text: data.otu_labels,
+            y: otuIds,
             type:"bar",
-            orientation:"h"
+            name: '',
+            hovertemplate: bacteria.otu_labels,
+            orientation:"h",
         }];
 
         let bacteriaLayout = {
-            title: "I hope this works!"
+            title:{
+                text: `Participant ${subject}, Top 10 Bacteria Species Present`
+            }, 
+            xaxis: {
+                title:{
+                    text:"Sequencing Reads"
+                }
+            }
         };
 
         let bubbleTrace = [{
@@ -33,12 +46,26 @@ let data = d3.json("data/samples.json").then((rawData) => {
             mode: 'markers',
             marker: {
                 size: bacteria.sample_values,
-                color: bacteria.otu_ids,
-            }
+                color: bacteria.otu_ids
+            },
+            hovertemplate: 
+                "<b>%{text}</b><br>" +
+                "%{xaxis.title.text}: %{x}<br>" +
+                "%{yaxis.title.text}: %{y}"
         }];
 
         let bubbleLayout = {
-            title: "This should also work"
+            title: `Participant ${subject}, Species Distribution`,
+            xaxis: {
+                title:{
+                    text: 'Operational Taxonomic Unit'
+                }
+            },
+            yaxis:{
+                title:{
+                    text: 'Sequencing Reads'
+                }
+            }
         };
 
         let metadataTrace = [{
@@ -58,7 +85,6 @@ let data = d3.json("data/samples.json").then((rawData) => {
         Plotly.newPlot("bubbleChart", bubbleTrace, bubbleLayout);
         Plotly.newPlot("demographics", metadataTrace)
 
-        //console.log(rawData);
         //console.log(names);
 
 
@@ -77,31 +103,9 @@ let data = d3.json("data/samples.json").then((rawData) => {
     function selectData(){
        let selectMenu = d3.select("#dataSet");
        let dataSet = selectMenu.property("value");
-       console.log(dataSet);
        displayData(dataSet);    
     };
         
     displayData(0);
-    console.log(rawData.samples[133])
-    
-
     d3.selectAll("#dataSet").on("change", selectData);
 });
-
-
-
-        // // Fill the data table using the values from each object in the data set
-        // inputData.forEach((ufoReport) => {
-        //     let row = tbody.append("tr");
-        //     Object.entries(ufoReport).forEach(([key,value]) => {
-        //         let cell = row.append("td");
-        //         cell.text(value);
-        //     })
-        // })
-
-        // // Create table header using they keys from the data object
-        // let header = thead.append("tr");
-        // Object.entries(inputData[0]).forEach(([key,value]) => {
-        //     let contents = header.append("th");
-        //     contents.text(key);
-        // })
