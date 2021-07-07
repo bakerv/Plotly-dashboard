@@ -1,7 +1,8 @@
 let data = d3.json("data/samples.json").then((rawData) => {
     let names = rawData.names;
+    var dataSet = 0;
 
-    function populateMenu(){
+    function populateMenu() {
         // generate options for the select menu, and link the associated index with the id option
         // This linkage will be used to select which data set to display
         names.forEach((id,index) =>{
@@ -18,7 +19,7 @@ let data = d3.json("data/samples.json").then((rawData) => {
         let subject = rawData.samples[id].id;
         let config = {responsive: true};
 
-        function hBarPlot(){
+        function hBarPlot() {
             // isolate the top 10 items from the data set.
             // The data comes sorted by sample values descending
             let seqReads = bacteria.sample_values.slice(0,10).reverse();
@@ -49,7 +50,7 @@ let data = d3.json("data/samples.json").then((rawData) => {
             Plotly.newPlot("bacteriaCounts", bacteriaTrace, bacteriaLayout, config);
         }
 
-        function bubblePlot(){
+        function bubblePlot() {
             // set up data and parameters for Plotly
             let bubbleTrace = [{
                 x:bacteria.otu_ids,
@@ -83,43 +84,56 @@ let data = d3.json("data/samples.json").then((rawData) => {
             Plotly.newPlot("bubbleChart", bubbleTrace, bubbleLayout, config);
         }
 
-        function metaTable(){
+        function metaTable() {
             let individualMetadata = rawData.metadata[id];
-
+            let displayKeys = ["ID:","Ethnicity:","Gender:","Age:","Location:","BB Type:","Wash Freq:"]
+           
             // set up data and parameters for plotly
             let metadataTrace = [{
                 type: 'table',
                 header:{
                     line: {color: 'white'}
                 },
+                columnwidth:[1,1],
                 cells: {
-                    values: [Object.keys(individualMetadata),Object.values(individualMetadata)],
+                    values: [displayKeys,Object.values(individualMetadata)],
                     align: ["right","left"],
                     height:30,
-                    font: {family: "Arial", size: 16, color: ["black"]},
+                    font: {family: "Arial", size: 14, color: ["black"]},
                     line:{color: 'white'},
-                    pad: 50
+                    pad: 0
                 }
             }];
             let metadataLayout = {
                 title: `Participant Demographics`
             }
             // Pass table into the div using Plotly
-            Plotly.newPlot("demographics", metadataTrace, metadataLayout, config)
+            Plotly.newPlot("demographics", metadataTrace, metadataLayout)
         }
 
-        hBarPlot();
-        bubblePlot();
+        try {
+            hBarPlot();
+        }
+        catch {}
+
+        try {
+            bubblePlot();
+        }
+        catch{}
+
+        try {
         metaTable();
+        }
+        catch{}
     };
 
-    function selectData(){
+    function selectData() {
        let selectMenu = d3.select("#dataSet");
-       let dataSet = selectMenu.property("value");
+       dataSet = selectMenu.property("value");
        displayData(dataSet);    
     };
-        
-    displayData(0);
     populateMenu();
+    displayData(dataSet);
+    
     d3.selectAll("#dataSet").on("change", selectData);
 });
