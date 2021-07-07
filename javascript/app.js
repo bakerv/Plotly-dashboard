@@ -125,7 +125,7 @@ let data = d3.json("data/samples.json").then((rawData) => {
             }
             }
             // Pass table into the div using Plotly
-            Plotly.newPlot("demographics", metadataTrace, metadataLayout)
+            Plotly.newPlot("demographics", metadataTrace, metadataLayout,config)
         }
 
         try {
