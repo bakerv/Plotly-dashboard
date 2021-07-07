@@ -4,6 +4,6 @@ This project uses a javascript backend to supply information to an interactive H
 ### Dashboard
 [<img src="https://github.com/bakerv/plotly-dashboard/blob/main/images/deployment_sample.PNG">](https://bakerv.github.io/plotly-dashboard/)
 
-### Source: 
+### Data Source: 
 
 Hulcr, J. et al.(2012) <i>A Jungle in There: Bacteria in Belly Buttons are Highly Diverse, but Predictable.</i> The Public Science Lab, North Carolina State University. Accessed July 2021.
